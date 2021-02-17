@@ -1,0 +1,19 @@
+@echo off
+
+set FINDME=%1
+call :finder
+goto :eof
+
+
+:finder
+for %%f in (*.*) do (
+	>nul find "%FINDME%" %%f && (
+		  echo ####################### %FINDME% was found in %%f)
+	) || ( echo %FINDME% wasn't found in %%f)
+)
+
+for /D %%d in (*) do (
+    cd %%d
+    call :finder
+    cd ..
+)
